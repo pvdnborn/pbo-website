@@ -71,7 +71,7 @@ source "azure-arm" "PatrickvandenBorn-Builder-Az" {
 }
 
 build {
-    sources = ["sources.xenserver.PatrickvandenBorn-Builder-XS", sources.azurearm.PatrickvandenBorn-Builder-XS"]
+    sources = ["sources.xenserver.PatrickvandenBorn-Builder-XS", "sources.azurearm.PatrickvandenBorn-Builder-XS"]
    
     provisioners go here...
 }
@@ -79,16 +79,16 @@ build {
 During the development, I discovered that the community-supported Citrix XenServer provider was not actively maintained for a long time and that not all scenarios for Citrix Hypervisor were available in that builder. Since community supported Citrix XenServer builder is not maintained frequently, I didn’t want to depend my production image on this builder. After some time, I realized that the null builder could help me in the Citrix Hypervisor scenario.
 
 ## The Citrix Hypervisor Null builder flow
-I realized I could provision the Citrix Hypervisor VM builder using the Citrix Hypervisor PowerShell SDK (https://docs.citrix.com/en-us/citrix-hypervisor/sdk-api.html). After provisioning the VM via Citrix Hypervisor SDK, I can use the null builder to provision the Packer provisioners. This allows me also to deploy the same Packer build parallel to XenServer and Azure as my initial thought.
+I realized I could provision the Citrix Hypervisor VM builder using the Citrix Hypervisor PowerShell SDK [https://docs.citrix.com/en-us/citrix-hypervisor/sdk-api.html](https://docs.citrix.com/en-us/citrix-hypervisor/sdk-api.html). After provisioning the VM via Citrix Hypervisor SDK, I can use the null builder to provision the Packer provisioners. This allows me also to deploy the same Packer build parallel to XenServer and Azure as my initial thought.
 
-In our Packer process on Citrix Hypervisor, we’ve provisioned a vanilla Windows 10 virtual machine and enabled WinRM on it. Then, we’ve created a snapshot called “vanilla_packer” which the pipeline reverts to before the Packer null build is started. After the null build, the Vhttps://github.com/pvdnborn/pvdnborn/tree/main/CitrixHypervisor/BuilderScriptsM is shut down, and a snapshot with the build number of the pipeline run is created, which can be used for MCS or PVS deployment.
+In our Packer process on Citrix Hypervisor, we’ve provisioned a vanilla Windows 10 virtual machine and enabled WinRM on it. Then, we’ve created a snapshot called “vanilla_packer” which the pipeline reverts to before the Packer null build is started. After the null build, the VM is shut down, and a snapshot with the build number of the pipeline run is created, which can be used for MCS or PVS deployment.
 
 The flow is as follows:
-1. Revert Packer Builder Snapshot, which reverts to a vanilla snapshot (**Revert-XSSnapshot.ps1**)
+1. Revert Packer Builder Snapshot, which reverts to a vanilla snapshot (**[Revert-XSSnapshot.ps1](https://github.com/pvdnborn/pvdnborn/blob/main/CitrixHypervisor/BuilderScripts/Revert-XSSnapshot.ps1)**)
 1. Packer init
-1. Packer Build (null builder, shutdown VM with command provisioner **shutdown /s /t 30 /f**)
-1. Create Packer Builder Snapshot, which creates a snapshot with the build number (**Create-XSSnapshot.ps1**)
-1. Remove obsolete build snapshots, saving SR space (**Clear-XSSnapshot.ps1**)
+1. Packer Build (null builder, shutdown VM with command provisioner **[shutdown /s /t 30 /f](https://github.com/pvdnborn/pvdnborn/blob/main/Packer-NullBuilder/Win2019_XA-XS.pkr.hcl)**)
+1. Create Packer Builder Snapshot, which creates a snapshot with the build number (**[Create-XSSnapshot.ps1](https://github.com/pvdnborn/pvdnborn/blob/main/CitrixHypervisor/BuilderScripts/Create-XSSnapshot.ps1)**)
+1. Remove obsolete build snapshots, saving SR space (**[Clear-XSSnapshot.ps1](https://github.com/pvdnborn/pvdnborn/blob/main/CitrixHypervisor/BuilderScripts/Clear-XSSnapshots.ps1)**)
 
 After this procedure, you can use the snapshot as input for Citrix Machine Creation Services, for example.
 
@@ -98,7 +98,7 @@ The three PowerShell scripts are available on my GitHub repository. The scripts 
 
 Citrix Hypervisor graphical overview:
 
-PICTURE GOES HERE
+![Citrix XenServer Snapshots]({{site.baseuirl}}/assets/img/Posts/01-null-builder/XenServerSnapshots.png)
 
 ## Some additional thoughts
 Since there is no native Nutanix AHV builder, the same approach can apply to Nutanix AHV using the Prism API. I know there are blogs for Nutanix and Packer using QEMU or KVM builder, but these are not native Nutanix AHV VMs.
