@@ -101,6 +101,11 @@ Citrix Hypervisor graphical overview:
 ![Citrix XenServer Snapshots]({{site.baseuirl}}/assets/img/Posts/01-null-builder/XenServerSnapshots.png)
 
 ## Some additional thoughts
-Since there is no native Nutanix AHV builder, the same approach can apply to Nutanix AHV using the Prism API. I know there are blogs for Nutanix and Packer using QEMU or KVM builder, but these are not native Nutanix AHV VMs.
+Since there is no native Nutanix AHV builder (update!!), the same approach can apply to Nutanix AHV using the Prism API. I know there are blogs for Nutanix and Packer using QEMU or KVM builder, but these are not native Nutanix AHV VMs.
 
 Lastly, I’m hoping that common hypervisor vendors like Nutanix and Citrix will enable the Image-as-Code approach for their customers and community by creating and maintaining an official Packer Builder. I see more Enterprises are switching to an everything-as-code approach and embracing tools like HashiCorp Packer since WDS, MDT, SCCM, and Ivanti Automation are hard to manage from an as-code/pipeline approach.
+
+## Nutanix Update 29-08-2022
+After posting this blog I got informed that there is a Nutanix Builder for AHV. [https://github.com/nutanix-cloud-native/packer-plugin-nutanix](https://github.com/nutanix-cloud-native/packer-plugin-nutanix) Hoping to see this on packer.io soon.
+
+Wil update this post later.
