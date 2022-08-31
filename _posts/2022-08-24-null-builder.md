@@ -5,7 +5,6 @@ date:   2022-08-24 21:00:00 +0100
 categories: Packer
 ---
 
-# HashiCorp Packer null builder. Deploy your Packer Template to non-supported builders like Citrix Hypervisor and Nutanix AHV
 In the last years, I’ve been using Packer to build End-User-Computing Golden Images for Citrix, VMware, and Microsoft on multi-platforms like vSphere, Azure, GCP, etc. Recently I discovered the null builder, which extended my Packer experience. This experience I want to share with you in this blog post.
 
 ## Scenario’s for the null builder
