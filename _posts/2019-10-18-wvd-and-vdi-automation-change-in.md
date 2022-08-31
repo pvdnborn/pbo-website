@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "WVD and VDI automation: Change in language pack installation on Windows 10 1809 and higher"
-date:   2018-03-14 18:40:00 +0100
+date:   2019-10-18 18:40:00 +0100
 categories:  VDI, multi user, Language Experience Pack, '1903', '1909', LIB, LIP, '1809', WVD, LXP, Windows Virtual Desktop, Windows 10 for Virtual Desktops, non-persistent, Windows 10
 ---
 
