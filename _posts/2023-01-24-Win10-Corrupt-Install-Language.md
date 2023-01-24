@@ -4,9 +4,9 @@ title:  "Windows 10 Multi-Session OS corruption when using â€œInstall-Languageâ€
 date:   2023-01-24 21:00:00 +0100
 categories: Packer, Azure Virtual Desktop, AVD, Windows 10, Windows 10 Multi Session, Install-Language
 ---
-Currently, I'm doing some Microsoft Azure image deployments for Windows 10 Multi-Session 22H2. During the automation part, I found an annoying bug that I want to share with you. This bug is so irritating that it will corrupt Windows after using the ```install language``` module. You will notice that you can't connect via TCP/IP to the system anymore (including RDP/Bastion). Redeployment of the operating system is needed since there is only access via the serial console.
+Currently, I'm doing some Microsoft Azure image deployments for Windows 10 Multi-Session 22H2. During the automation part, I found an annoying bug that I want to share with you. This bug is so irritating that it will corrupt Windows after using the ```Install-Language``` module. You will notice that you can't connect via TCP/IP to the system anymore (including RDP/Bastion). Redeployment of the operating system is needed since there is only access via the serial console.
 
-Multiple people contacted me, facing the same issues since I tweeted about this issue. Tweet link: ([https://twitter.com/pvdnborn/status/1615672687199748097](https://twitter.com/pvdnborn/status/1615672687199748097)). There is a workaround for this issue, which I will describe in this blog too.
+Multiple people contacted me, facing the same issues since I tweeted about this issue. Tweet link: [https://twitter.com/pvdnborn/status/1615672687199748097](https://twitter.com/pvdnborn/status/1615672687199748097). There is a workaround for this issue, which I will describe in this blog too.
 
 ## Symptoms
 When using the latest marketplace image for Windows 10 Multi Session 22H2:
@@ -44,9 +44,9 @@ The workaround is as follows:
 Installing a cumulative update after using the ```Install-Language``` seems to fix the issue or repair the operating system. So if you don't have updates, or the marketplace image is up-to-date, then you're screwed! 
 
 ## Use an alternative method to install language packs
-At first, I liked the new PowerShell command ```Install-Language```. The ```Install-Language``` command saves much time and complexity compared to the alternative method. Since ```Install-Language``` is breaking the operating system, I prefer to use the alternative method with DISM and LXP. I've written a blog in the past about this procedure: ([https://www.vandenborn.it/2019-10-18-wvd-and-vdi-automation-change-in/](https://www.vandenborn.it/2019-10-18-wvd-and-vdi-automation-change-in/))
+At first, I liked the new PowerShell command ```Install-Language```. The ```Install-Language``` command saves much time and complexity compared to the alternative method. Since ```Install-Language``` is breaking the operating system, I prefer to use the alternative method with DISM and LXP. I've written a blog in the past about this procedure: [https://www.vandenborn.it/2019-10-18-wvd-and-vdi-automation-change-in/](https://www.vandenborn.it/2019-10-18-wvd-and-vdi-automation-change-in/)
 
 ## Last words
-I hope I've saved you some troubleshoot time by posting this information. The first time I ran into this issue, it took me hours to troubleshoot and identify it was Install-Language breaking the Windows 10 Multi Session operating system. Note: I didn't verify if Windows 11 Multi Session has the same issues.
+I hope I've saved you some troubleshoot time by posting this information. The first time I ran into this issue, it took me hours to troubleshoot and identify it was ```Install-Language``` breaking the Windows 10 Multi Session operating system. Note: I didn't verify if Windows 11 Multi Session has the same issues.
 
 It would be nice if Microsoft will fix this issue in the next releases of Windows 10 Multi Session, so ```Install-Language``` will make our automation live easier.
