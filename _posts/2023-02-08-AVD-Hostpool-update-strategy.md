@@ -11,14 +11,14 @@ Over the last few years, many non-persistent single image management methods exi
 
 Looking at how traditional single-image management methods release their images, the existing resources (virtual or physical machines) are provisioned with a new disk image. Or, in the case of a rollback, the existing resources are provisioned with the previous disk image.
 
-With the advent of the public cloud, we see that existing single image methods, as we know them from on-premises, are being developed further for the cloud. There is nothing wrong with this because these techniques are often already known within the organization. On the other hand, the non-persistent character can be a definite plus in some cases.
+With the advent of the public cloud, we see that existing on-premises single image methods, are being developed further for the cloud. There is nothing wrong with this because these techniques are often already known within the organization. On the other hand, the non-persistent character can be a definite plus in some cases.
 
-With the arrival of the public cloud, in addition to the traditional single image management methods, new possibilities also arise for releasing disk images to virtual machines in the cloud. New opportunities arise from the elasticity of the cloud, creating new possibilities.
+When it comes to public cloud, new possibilities also arise for releasing disk images to virtual machines in the cloud. New opportunities arise from the elasticity of the cloud, creating new possibilities in this area.
 
 Often, I hear the complaint that no single image management method is available for Azure Virtual Desktop. The Azure platform offers excellent opportunities to apply a good release strategy. The following paragraphs explain how I use a good image release strategy for Azure Virtual Desktop host pools.
 
 ## Why a good image release strategy is necessary
-To stay in control after releasing new images, a good image release strategy is necessary. Managing pets, where all session hosts are updated individually, is:
+To stay in control after releasing new images, a good image release strategy is necessary. Managing updates for session hosts manually, is:
 * Prone to errors; session hosts can deviate due to inconsistency or human error
 * Downtime; a maintenance window must be agreed upfront to perform the updates.
 * Recovery time; recovery from a faulty update can take a long time.
