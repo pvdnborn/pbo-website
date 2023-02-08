@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Azure Virtual Desktop Host pool update strategy via a Blue-Green deployment."
-date:   2023-02-08 20:00:00 +0100
+date:   2023-02-08 17:00:00 +0100
 categories: Terraform, Azure Virtual Desktop, AVD, Release strategy, blue, green, blue-green
 ---
 Recently, I have been working on Infrastructure as Code and Image as Code projects. During these projects, it has become clear to me that having a good release strategy can have many benefits. I have some practical experience with this and would like to share my thoughts of an image release approach in the cloud with you. 
