@@ -37,7 +37,7 @@ With Azure Virtual Desktop, it is easy to define which environment is the produc
 ### Updating the Image in the Green Environment
 A new image for the green (standby) environment can be released as follows:
 
-![UpdateBlueAVDHostpool]({{site.baseuirl}}/assets/img/Posts/2023-02-08-bluegreenstrategy/02-UpdateBlueAVDHostpool.jpg)
+![UpdateGreenAVDHostpool]({{site.baseuirl}}/assets/img/Posts/2023-02-08-bluegreenstrategy/02-UpdateGreenAVDHostpool.jpg)
 
 Process:
 1. Place the updated image as a new image version in the Azure Compute Gallery
