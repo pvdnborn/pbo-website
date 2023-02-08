@@ -19,9 +19,9 @@ Often, I hear the complaint that no single image management method is available 
 
 ## Why a good image release strategy is necessary
 To stay in control after releasing new images, a good image release strategy is necessary. Managing pets, where all session hosts are updated individually, is:
-• Prone to errors; session hosts can deviate due to inconsistency or human error
-• Downtime; a maintenance window must be agreed upfront to perform the updates.
-• Recovery time; recovery from a faulty update can take a long time.
+* Prone to errors; session hosts can deviate due to inconsistency or human error
+* Downtime; a maintenance window must be agreed upfront to perform the updates.
+* Recovery time; recovery from a faulty update can take a long time.
 
 To tackle these problems, I often use a blue-green deployment strategy. This strategy comes from software development world, where the production environment is referred to as (blue) and the standby environment as (green). The updates are then installed and tested on the green environment. Once the updates are found to be good, the switch is made from the blue environment to the green environment so that the green environment becomes the new production environment. This method can also be applied to Azure Virtual Desktop Host pools, Citrix Machine Catalogs, etc.
 
@@ -40,10 +40,10 @@ A new image for the green (standby) environment can be released as follows:
 ![UpdateBlueAVDHostpool]({{site.baseuirl}}/assets/img/Posts/2023-02-08-bluegreenstrategy/02-UpdateBlueAVDHostpool.jpg)
 
 Process:
-    1. Place the updated image as a new image version in the Azure Compute Gallery
-    2. Reprovision all machines in the green host pool with the most recent image from the Azure Compute Gallery
-    3. Create an association between the green application group and the workspace
-    4. Break the association between the blue application group and the workspace
+1. Place the updated image as a new image version in the Azure Compute Gallery
+2. Reprovision all machines in the green host pool with the most recent image from the Azure Compute Gallery
+3. Create an association between the green application group and the workspace
+4. Break the association between the blue application group and the workspace
 
 This way, the green environment becomes the production environment, and the blue environment becomes the standby environment. In case of issues arising from updates in the green environment, it can easily be rolled back to the blue environment by establishing an association between the blue application group and the workspace and breaking it between the green application group and workspace.
 
@@ -53,10 +53,10 @@ The process for updating the following image is the same, only now we update the
 ![UpdateBlueAVDHostpool]({{site.baseuirl}}/assets/img/Posts/2023-02-08-bluegreenstrategy/02-UpdateBlueAVDHostpool.jpg)
 
 Process:
-    1. Place the updated image as a new image version in the Azure Compute Gallery
-    2. Reprovision all machines in the blue host pool with the most recent image from the Azure Compute Gallery
-    3. Create an association between the blue application group and the workspace
-    4. Break the association between the green application group and the workspace
+1. Place the updated image as a new image version in the Azure Compute Gallery
+2. Reprovision all machines in the blue host pool with the most recent image from the Azure Compute Gallery
+3. Create an association between the blue application group and the workspace
+4. Break the association between the green application group and the workspace
 
 This cycle can be repeated indefinitely by alternating blue and green as the production environment.
 
@@ -68,8 +68,8 @@ Due to the rise of cybercrime, such as hacking and ransomware, it is crucial to 
 The rollback time to the previous image is minimal using a blue-green deployment strategy. The association between the application groups (blue/green) and the workspace must be reversed. Because the rollback process is so simple, I always advise my clients to immediately implement security patches without extensive testing. The downtime and impact on the organization for rolling back to the standby environment are lower than hackers taking advantage of exploits on known vulnerabilities.
 
 On the other hand, some upgrades (e.g., from AutoCAD 2021 to AutoCAD 2023) must be extensively tested in a testing environment. Therefore, I always follow two release strategies:
-• Security updates: implement as quickly as possible, relying on rapid rollback
-• Major application updates: extensively test updates in a test setup
+* Security updates: implement as quickly as possible, relying on rapid rollback
+* Major application updates: extensively test updates in a test setup
 
 ## Automation and Terraform Workspaces
 As you may already know, I am a huge fan of automation and try to do as little manual work as possible. To release images for Azure Virtual Desktop using a blue-green release method, I use [Terraform Workspaces](https://developer.hashicorp.com/terraform/cli/workspaces). With Terraform workspaces, the same Azure Virtual Desktop desired state configuration can easily be applied independently to the blue or green environment. I will write about this in more detail in my next blog.
